@@ -15,7 +15,8 @@
     <RelativeLayout
         android:id="@+id/rootCardLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/selector">
         <TextView
             android:id="@+id/social_textView"
             android:layout_width="wrap_content"

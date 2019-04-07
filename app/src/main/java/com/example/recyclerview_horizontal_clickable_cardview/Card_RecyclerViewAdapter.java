@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,9 @@ public class Card_RecyclerViewAdapter extends RecyclerView.Adapter<Card_Recycler
         CardView cardView;
         RelativeLayout relativeLayout;
         TextView textView_socialname,textView_username;
+
+        private SparseBooleanArray selectedItems =  new SparseBooleanArray();
+
         public MyCardViewHolder(@NonNull final View itemView) {
             super(itemView);
 
@@ -60,31 +64,41 @@ public class Card_RecyclerViewAdapter extends RecyclerView.Adapter<Card_Recycler
             textView_socialname = itemView.findViewById(R.id.social_textView);
             textView_username = itemView.findViewById(R.id.username_textView);
 
-            cardView.setCardBackgroundColor(Color.parseColor("#95a5a6"));
+          //  cardView.setCardBackgroundColor(Color.parseColor("#95a5a6"));
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    relativeLayout.setBackground(ContextCompat.getDrawable(context,R.drawable.gradient));
-
-                    switch (getAdapterPosition()){
-                        case 0:
-                            Toast.makeText(context,""+getAdapterPosition(),Toast.LENGTH_SHORT).show();
-                            break;
-
-                        case 1:
-                            Toast.makeText(context,""+getAdapterPosition(),Toast.LENGTH_SHORT).show();
-                            break;
-
-                        case 2:
-                            Toast.makeText(context,""+getAdapterPosition(),Toast.LENGTH_SHORT).show();
-                            break;
-
-                        case 3 :
-                            Toast.makeText(context,""+getAdapterPosition(),Toast.LENGTH_SHORT).show();
-                            break;
+                    if(selectedItems.get(getAdapterPosition(),false)){
+                        selectedItems.delete(getAdapterPosition());
+                        v.setSelected(false);
                     }
+                    else{
+                        selectedItems.put(getAdapterPosition(),true);
+                        Toast.makeText(context,""+getAdapterPosition(),Toast.LENGTH_SHORT).show();
+                        v.setSelected(true);
+                    }
+
+//                    relativeLayout.setBackground(ContextCompat.getDrawable(context,R.drawable.gradient));
+//
+//                    switch (getAdapterPosition()){
+//                        case 0:
+//                            Toast.makeText(context,""+getAdapterPosition(),Toast.LENGTH_SHORT).show();
+//                            break;
+//
+//                        case 1:
+//                            Toast.makeText(context,""+getAdapterPosition(),Toast.LENGTH_SHORT).show();
+//                            break;
+//
+//                        case 2:
+//                            Toast.makeText(context,""+getAdapterPosition(),Toast.LENGTH_SHORT).show();
+//                            break;
+//
+//                        case 3 :
+//                            Toast.makeText(context,""+getAdapterPosition(),Toast.LENGTH_SHORT).show();
+//                            break;
+//                    }
                 }
             });
         }
