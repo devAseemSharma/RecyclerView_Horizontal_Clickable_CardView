@@ -22,6 +22,7 @@ public class Card_RecyclerViewAdapter extends RecyclerView.Adapter<Card_Recycler
 
     private Context context;
     private ArrayList<CardInfo> cardInfoArrayList;
+    private int selectedPosition = -1;
 
     public Card_RecyclerViewAdapter(Context context, ArrayList<CardInfo> cardInfoArrayList){
         this.context = context;
@@ -41,6 +42,11 @@ public class Card_RecyclerViewAdapter extends RecyclerView.Adapter<Card_Recycler
         CardInfo cardInfo = cardInfoArrayList.get(i);
         myCardViewHolder.textView_socialname.setText(cardInfo.getSocialname());
         myCardViewHolder.textView_username.setText(cardInfo.getUsername());
+        if (selectedPosition == myCardViewHolder.getAdapterPosition() ){
+            myCardViewHolder.itemView.setSelected(true);
+        }else{
+            myCardViewHolder.itemView.setSelected(false);
+        }
     }
 
     @Override
@@ -70,35 +76,8 @@ public class Card_RecyclerViewAdapter extends RecyclerView.Adapter<Card_Recycler
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(selectedItems.get(getAdapterPosition(),false)){
-                        selectedItems.delete(getAdapterPosition());
-                        v.setSelected(false);
-                    }
-                    else{
-                        selectedItems.put(getAdapterPosition(),true);
-                        Toast.makeText(context,""+getAdapterPosition(),Toast.LENGTH_SHORT).show();
-                        v.setSelected(true);
-                    }
-
-//                    relativeLayout.setBackground(ContextCompat.getDrawable(context,R.drawable.gradient));
-//
-//                    switch (getAdapterPosition()){
-//                        case 0:
-//                            Toast.makeText(context,""+getAdapterPosition(),Toast.LENGTH_SHORT).show();
-//                            break;
-//
-//                        case 1:
-//                            Toast.makeText(context,""+getAdapterPosition(),Toast.LENGTH_SHORT).show();
-//                            break;
-//
-//                        case 2:
-//                            Toast.makeText(context,""+getAdapterPosition(),Toast.LENGTH_SHORT).show();
-//                            break;
-//
-//                        case 3 :
-//                            Toast.makeText(context,""+getAdapterPosition(),Toast.LENGTH_SHORT).show();
-//                            break;
-//                    }
+                    selectedPosition = getAdapterPosition();
+                    notifyDataSetChanged();
                 }
             });
         }
